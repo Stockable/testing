@@ -1,0 +1,53 @@
+<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    /* Background styling */
+    .bg { fill: #0d1117; }
+    
+    /* The Button */
+    .button {
+      fill: #238636;
+      cursor: pointer;
+      transition: transform 0.1s, fill 0.2s;
+      transform-origin: center;
+    }
+
+    /* Animation on Click */
+    .button:active {
+      transform: scale(0.9);
+      fill: #2ea043;
+    }
+
+    /* Floating text animation */
+    @keyframes floatUp {
+      0% { opacity: 0; transform: translateY(0); }
+      50% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-100px); }
+    }
+
+    .plus-one {
+      font-family: sans-serif;
+      font-weight: bold;
+      fill: #58a6ff;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Trigger floating text when button is clicked */
+    .button:active + .plus-one {
+      animation: floatUp 0.5s ease-out;
+    }
+  </style>
+
+  <rect width="400" height="400" class="bg" />
+
+  <circle cx="200" cy="200" r="80" class="button" />
+  
+  <text x="185" y="180" class="plus-one">+1</text>
+
+  <text x="50%" y="340" text-anchor="middle" fill="#c9d1d9" font-family="sans-serif" font-size="16">
+    CLICK THE GREEN CIRCLE
+  </text>
+  <text x="50%" y="370" text-anchor="middle" fill="#8b949e" font-family="sans-serif" font-size="12">
+    (Works in Raw View)
+  </text>
+</svg>
