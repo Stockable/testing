@@ -1,30 +1,59 @@
-# run this on your computer to generate the "forever" file
-clicks = 1000
-with open("forever_clicker.svg", "w") as f:
-    f.write('<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">\n')
-    f.write('<foreignObject width="100%" height="100%"><div xmlns="http://www.w3.org/1999/xhtml" style="height:100%;background:#0d1117;color:white;font-family:sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;user-select:none;">\n')
-    
-    # CSS Logic
-    f.write('<style>body{counter-reset:s 0;}input{position:absolute;opacity:0;}input:checked{counter-increment:s;}\n')
-    f.write('.score::after{content:counter(s);font-size:80px;color:#58a6ff;font-weight:bold;}\n')
-    f.write('.container{position:relative;width:150px;height:150px;margin-top:20px;}\n')
-    f.write('.btn{position:absolute;width:150px;height:150px;background:#238636;border-radius:50%;display:none;align-items:center;justify-content:center;cursor:pointer;font-weight:bold;box-shadow:0 4px 15px rgba(0,0,0,0.5);}\n')
-    f.write('.btn:active{transform:scale(0.95);background:#2ea043;}\n')
-    
-    # The "Next" Logic Generator
-    f.write('#c1:not(:checked) ~ .container label[for="c1"]{display:flex;}\n')
-    for i in range(1, clicks):
-        f.write(f'#c{i}:checked + #c{i+1}:not(:checked) ~ .container label[for="c{i+1}"]{{display:flex;}}\n')
-    f.write('</style>\n')
+<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <foreignObject width="100%" height="100%">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="height: 100%; background: #0d1117; color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; user-select: none;">
+      
+      <style>
+        body { counter-reset: score 0; margin: 0; }
+        input { position: absolute; opacity: 0; }
+        input:checked { counter-increment: score; }
 
-    # Generate Inputs
-    for i in range(1, clicks + 1):
-        f.write(f'<input type="checkbox" id="c{i}"/>')
-    
-    f.write('<div class="score"></div><div class="container">\n')
-    
-    # Generate Labels
-    for i in range(1, clicks + 1):
-        f.write(f'<label for="c{i}" class="btn">CLICK</label>')
-        
-    f.write('</div><p style="color:#8b949e;margin-top:20px;">1,000 Click Challenge</p></div></foreignObject></svg>')
+        .score-board::after {
+          content: counter(score);
+          font-size: 80px; color: #58a6ff; font-weight: bold;
+        }
+
+        .container { position: relative; width: 150px; height: 150px; margin-top: 20px; }
+
+        .btn {
+          position: absolute; width: 150px; height: 150px;
+          background: #238636; border-radius: 50%;
+          display: none; align-items: center; justify-content: center;
+          cursor: pointer; font-weight: bold;
+          box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .btn:active { transform: scale(0.95); background: #2ea043; }
+
+        /* THE ENGINE: This pattern tells the next button when to show up */
+        #c1:not(:checked) ~ .container label[for="c1"],
+        #c1:checked + #c2:not(:checked) ~ .container label[for="c2"],
+        #c2:checked + #c3:not(:checked) ~ .container label[for="c3"],
+        #c3:checked + #c4:not(:checked) ~ .container label[for="c4"],
+        #c4:checked + #c5:not(:checked) ~ .container label[for="c5"],
+        #c5:checked + #c6:not(:checked) ~ .container label[for="c6"],
+        #c6:checked + #c7:not(:checked) ~ .container label[for="c7"],
+        #c7:checked + #c8:not(:checked) ~ .container label[for="c8"],
+        #c8:checked + #c9:not(:checked) ~ .container label[for="c9"],
+        #c9:checked + #c10:not(:checked) ~ .container label[for="c10"] 
+        { display: flex; }
+      </style>
+
+      <input type="checkbox" id="c1"/><input type="checkbox" id="c2"/>
+      <input type="checkbox" id="c3"/><input type="checkbox" id="c4"/>
+      <input type="checkbox" id="c5"/><input type="checkbox" id="c6"/>
+      <input type="checkbox" id="c7"/><input type="checkbox" id="c8"/>
+      <input type="checkbox" id="c9"/><input type="checkbox" id="c10"/>
+
+      <div class="score-board"></div>
+
+      <div class="container">
+        <label for="c1" class="btn">CLICK</label><label for="c2" class="btn">CLICK</label>
+        <label for="c3" class="btn">CLICK</label><label for="c4" class="btn">CLICK</label>
+        <label for="c5" class="btn">CLICK</label><label for="c6" class="btn">CLICK</label>
+        <label for="c7" class="btn">CLICK</label><label for="c8" class="btn">CLICK</label>
+        <label for="c9" class="btn">CLICK</label><label for="c10" class="btn">CLICK</label>
+      </div>
+
+      <p style="color: #8b949e; margin-top: 20px;">Manual SVG State Machine</p>
+    </div>
+  </foreignObject>
+</svg>
