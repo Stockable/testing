@@ -1,26 +1,59 @@
-<svg version="1.1" viewBox="0 0 400 266.67" xmlns="http://www.w3.org/2000/svg"> <image id="main-hall" width="500" height="300" href="/imgs/main hall.svg" /> <path id="main-hall-left-door" d="blahahahahah" /> <path id="main-hall-right-door" d="blahahahahah" /> </svg>
+<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <foreignObject width="100%" height="100%">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="height: 100%; background: #0d1117; color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; user-select: none;">
+      
+      <style>
+        body { counter-reset: score 0; margin: 0; }
+        input { position: absolute; opacity: 0; }
+        input:checked { counter-increment: score; }
 
-<svg version="1.1" viewBox="0 0 400 266.67" xmlns="http://www.w3.org/2000/svg"> <image id="first-room" width="500" height="300" href="/imgs/first room.svg" /> <path id="first-room-left-door" d="blahahahahah" /> <path id="first-room-right-door" d="blahahahahah" /> </svg>
+        .score-board::after {
+          content: counter(score);
+          font-size: 80px; color: #58a6ff; font-weight: bold;
+        }
 
-<svg version="1.1" viewBox="0 0 400 266.67" xmlns="http://www.w3.org/2000/svg"> <image id="second-room" width="500" height="300" href="/imgs/first room.svg" /> <path id="second-room-left-door" d="blahahahahah" /> <path id="second-room-right-door" d="blahahahahah" /> </svg>
+        .container { position: relative; width: 150px; height: 150px; margin-top: 20px; }
 
+        .btn {
+          position: absolute; width: 150px; height: 150px;
+          background: #238636; border-radius: 50%;
+          display: none; align-items: center; justify-content: center;
+          cursor: pointer; font-weight: bold;
+          box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .btn:active { transform: scale(0.95); background: #2ea043; }
 
-mainHallLeftDoor.addEventListener("click", function() {
+        /* THE ENGINE: This pattern tells the next button when to show up */
+        #c1:not(:checked) ~ .container label[for="c1"],
+        #c1:checked + #c2:not(:checked) ~ .container label[for="c2"],
+        #c2:checked + #c3:not(:checked) ~ .container label[for="c3"],
+        #c3:checked + #c4:not(:checked) ~ .container label[for="c4"],
+        #c4:checked + #c5:not(:checked) ~ .container label[for="c5"],
+        #c5:checked + #c6:not(:checked) ~ .container label[for="c6"],
+        #c6:checked + #c7:not(:checked) ~ .container label[for="c7"],
+        #c7:checked + #c8:not(:checked) ~ .container label[for="c8"],
+        #c8:checked + #c9:not(:checked) ~ .container label[for="c9"],
+        #c9:checked + #c10:not(:checked) ~ .container label[for="c10"] 
+        { display: flex; }
+      </style>
 
-alert("left door clicked")
+      <input type="checkbox" id="c1"/><input type="checkbox" id="c2"/>
+      <input type="checkbox" id="c3"/><input type="checkbox" id="c4"/>
+      <input type="checkbox" id="c5"/><input type="checkbox" id="c6"/>
+      <input type="checkbox" id="c7"/><input type="checkbox" id="c8"/>
+      <input type="checkbox" id="c9"/><input type="checkbox" id="c10"/>
 
-let img = document.getElementById("main-hall")
+      <div class="score-board"></div>
 
-img.setAttribute("href", "/img/first room.svg")
+      <div class="container">
+        <label for="c1" class="btn">CLICK</label><label for="c2" class="btn">CLICK</label>
+        <label for="c3" class="btn">CLICK</label><label for="c4" class="btn">CLICK</label>
+        <label for="c5" class="btn">CLICK</label><label for="c6" class="btn">CLICK</label>
+        <label for="c7" class="btn">CLICK</label><label for="c8" class="btn">CLICK</label>
+        <label for="c9" class="btn">CLICK</label><label for="c10" class="btn">CLICK</label>
+      </div>
 
-})
-
-mainHallRightDoor.addEventListener("click", function() {
-
-alert("right door clicked")
-
-let img = document.getElementById("main-hall")
-
-img.setAttribute("href", "/img/second room.svg")
-
-})
+      <p style="color: #8b949e; margin-top: 20px;">Manual SVG State Machine</p>
+    </div>
+  </foreignObject>
+</svg>
